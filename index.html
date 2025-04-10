@@ -1,54 +1,80 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <!-- Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Catálogo completo de cursos especializados en Manufactura Sostenible, Transformación Digital y Filosofía Solarpunk">
+
+    <!-- Title -->
     <title>MADFAM - Catálogo Completo de Cursos</title>
+
+    <!-- External CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Local CSS -->
     <link rel="stylesheet" href="css/main.css">
+
+    <!-- External JS Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 </head>
 <body>
-    <!-- Header & Navigation -->
+    <!-- Header Section -->
     <header class="hero-bg text-white min-h-screen relative flex flex-col justify-center items-center">
-        <div class="absolute top-0 left-0 w-full py-6 px-4 md:px-12 flex justify-between items-center z-10">
-            <div class="text-3xl font-bold tracking-wider"><span class="text-green-400">MAD</span><span class="text-blue-400">F</span><span class="text-orange-400">AM</span></div>
-            <nav class="hidden md:flex space-x-8 text-lg">
+        <!-- Navigation -->
+        <nav class="absolute top-0 left-0 w-full py-6 px-4 md:px-12 flex justify-between items-center z-10">
+            <div class="text-3xl font-bold tracking-wider">
+                <span class="text-green-400">MAD</span>
+                <span class="text-blue-400">F</span>
+                <span class="text-orange-400">AM</span>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex space-x-8 text-lg">
                 <a href="#acerca" class="nav-item">Acerca</a>
                 <a href="#fabricacion" class="nav-item">Fabricación Sostenible</a>
                 <a href="#transformacion" class="nav-item">Transformación Digital</a>
                 <a href="#solarpunk" class="nav-item">Filosofía Solarpunk</a>
                 <a href="#certificaciones" class="nav-item">Certificaciones</a>
-            </nav>
-            <div class="md:hidden text-2xl cursor-pointer menu-toggle">
-                <i class="fas fa-bars"></i>
             </div>
-        </div>
-        
-        <div class="text-center px-4 md:px-0 max-w-4xl mx-auto animate-element" id="hero-content">
+
+            <!-- Mobile Menu Toggle -->
+            <button class="md:hidden text-2xl cursor-pointer menu-toggle" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+
+        <!-- Hero Content -->
+        <section class="text-center px-4 md:px-0 max-w-4xl mx-auto animate-element" id="hero-content">
             <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">Catálogo Completo de Cursos</h1>
             <p class="text-xl md:text-2xl mb-8 opacity-90">100 cursos especializados en Manufactura Sostenible, Transformación Digital y Filosofía Solarpunk</p>
+            
             <div class="flex flex-wrap justify-center gap-4">
-                <a href="#categorias" class="px-8 py-3 bg-white text-gray-900 rounded-full font-medium hover:bg-gray-100 transition-all transform hover:scale-105">Explorar Catálogo</a>
-                <a href="#acerca" class="px-8 py-3 bg-transparent border-2 border-white rounded-full font-medium hover:bg-white hover:text-gray-900 transition-all">Conocer MADFAM</a>
+                <a href="#categorias" class="px-8 py-3 bg-white text-gray-900 rounded-full font-medium hover:bg-gray-100 transition-all transform hover:scale-105">
+                    Explorar Catálogo
+                </a>
+                <a href="#acerca" class="px-8 py-3 bg-transparent border-2 border-white rounded-full font-medium hover:bg-white hover:text-gray-900 transition-all">
+                    Conocer MADFAM
+                </a>
             </div>
-        </div>
-        
+        </section>
+
+        <!-- Scroll Indicator -->
         <div class="absolute bottom-10 left-0 w-full text-center">
-            <a href="#acerca" class="inline-block animate-bounce">
+            <a href="#acerca" class="inline-block animate-bounce" aria-label="Scroll down">
                 <i class="fas fa-chevron-down text-2xl"></i>
             </a>
         </div>
-        
+
+        <!-- Wave Divider -->
         <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-0">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" class="relative block w-full h-16 md:h-24">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" class="relative block w-full h-16 md:h-24" aria-hidden="true">
                 <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="#f9f9f9" opacity=".8"></path>
                 <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" fill="#f9f9f9" opacity=".5"></path>
-                <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="#f9f9f9"></path>
             </svg>
         </div>
     </header>
@@ -141,76 +167,78 @@
     </section>
 
     <!-- Certifications Section -->
-    <section id="certificaciones" class="py-20 px-4 md:px-12 bg-gray-100 section-container">
+    <section id="certificaciones" class="py-20 px-4 md:px-12 bg-gray-100 section-container" aria-labelledby="certifications-heading">
         <div class="max-w-7xl mx-auto">
-            <h2 class="text-4xl font-bold text-center mb-16 relative">
+            <h2 id="certifications-heading" class="text-4xl font-bold text-center mb-16 relative">
                 Sistema Educativo Mexicano y Certificaciones
-                <span class="absolute bottom-0 left-1/2 w-20 h-1 bg-blue-500 transform -translate-x-1/2 mt-2"></span>
+                <span class="absolute bottom-0 left-1/2 w-20 h-1 bg-blue-500 transform -translate-x-1/2 mt-2" aria-hidden="true"></span>
             </h2>
             
-            <div class="mb-16 animate-element">
-                <p class="text-gray-700 mb-6 text-center max-w-4xl mx-auto">
-                    Los cursos de este catálogo están alineados con el Sistema Educativo Mexicano y las certificaciones oficiales otorgadas por la Secretaría de Educación Pública (SEP) y el Consejo Nacional de Normalización y Certificación de Competencias Laborales (CONOCER).
+            <div class="prose max-w-3xl mx-auto mb-16 animate-element">
+                <p class="text-lg text-center">
+                    Nuestros cursos están alineados con el Sistema Nacional de Competencias y pueden conducir a certificaciones oficiales reconocidas por la SEP y CONOCER.
                 </p>
             </div>
-            
+
+            <!-- Education Levels Table -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mb-16">
-                <div class="bg-white rounded-lg shadow-lg p-8 animate-element">
+                <article class="bg-white rounded-lg shadow-lg p-8 animate-element">
                     <h3 class="text-2xl font-semibold mb-4 text-blue-600">Niveles Educativos en México</h3>
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full border border-gray-300">
-                            <thead>
-                                <tr class="bg-gray-100">
-                                    <th class="px-4 py-2 border text-left">Nivel</th>
-                                    <th class="px-4 py-2 border text-left">Descripción</th>
-                                    <th class="px-4 py-2 border text-left">Certificación/Título</th>
+                    <div class="overflow-x-auto" tabindex="0">
+                        <table class="min-w-full border border-gray-300" aria-describedby="education-levels-desc">
+                            <caption id="education-levels-desc" class="sr-only">Tabla de niveles educativos en México y sus certificaciones correspondientes</caption>
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th scope="col" class="px-4 py-2 border text-left">Nivel</th>
+                                    <th scope="col" class="px-4 py-2 border text-left">Duración</th>
+                                    <th scope="col" class="px-4 py-2 border text-left">Certificación/Título</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="px-4 py-3 border">Educación Media Superior Técnica</td>
-                                    <td class="px-4 py-3 border">Preparatoria técnica o bachillerato tecnológico (3 años)</td>
-                                    <td class="px-4 py-3 border">Certificado de Bachillerato Técnico, Título de Técnico Profesional</td>
+                                    <th scope="row" class="px-4 py-3 border font-normal">Educación Media Superior Técnica</th>
+                                    <td class="px-4 py-3 border">3 años</td>
+                                    <td class="px-4 py-3 border">Certificado de Bachillerato Técnico</td>
                                 </tr>
                                 <tr class="bg-gray-50">
-                                    <td class="px-4 py-3 border">Técnico Superior Universitario (TSU)</td>
-                                    <td class="px-4 py-3 border">Formación técnica avanzada (2-3 años)</td>
-                                    <td class="px-4 py-3 border">Título de Técnico Superior Universitario, Profesional Asociado</td>
+                                    <th scope="row" class="px-4 py-3 border font-normal">Técnico Superior Universitario (TSU)</th>
+                                    <td class="px-4 py-3 border">2-3 años</td>
+                                    <td class="px-4 py-3 border">Título de Técnico Superior Universitario</td>
                                 </tr>
                                 <tr>
-                                    <td class="px-4 py-3 border">Licenciatura</td>
-                                    <td class="px-4 py-3 border">Educación universitaria (4-5 años)</td>
+                                    <th scope="row" class="px-4 py-3 border font-normal">Licenciatura</th>
+                                    <td class="px-4 py-3 border">4-5 años</td>
                                     <td class="px-4 py-3 border">Título de Licenciatura</td>
                                 </tr>
                                 <tr class="bg-gray-50">
-                                    <td class="px-4 py-3 border">Especialidad</td>
-                                    <td class="px-4 py-3 border">Estudios posteriores a licenciatura (1 año)</td>
+                                    <th scope="row" class="px-4 py-3 border font-normal">Especialidad</th>
+                                    <td class="px-4 py-3 border">1 año</td>
                                     <td class="px-4 py-3 border">Diploma de Especialidad</td>
                                 </tr>
                                 <tr>
-                                    <td class="px-4 py-3 border">Maestría</td>
-                                    <td class="px-4 py-3 border">Posgrado (2 años)</td>
+                                    <th scope="row" class="px-4 py-3 border font-normal">Maestría</th>
+                                    <td class="px-4 py-3 border">2 años</td>
                                     <td class="px-4 py-3 border">Grado de Maestría</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                </div>
-                
-                <div class="bg-white rounded-lg shadow-lg p-8 animate-element">
+                </article>
+
+                <!-- CONOCER Certifications -->
+                <article class="bg-white rounded-lg shadow-lg p-8 animate-element">
                     <h3 class="text-2xl font-semibold mb-4 text-blue-600">Certificaciones CONOCER</h3>
-                    <p class="text-gray-700 mb-4">
-                        El Consejo Nacional de Normalización y Certificación de Competencias Laborales (CONOCER) es el organismo del gobierno mexicano que certifica competencias laborales a través del Sistema Nacional de Competencias.
+                    <p class="mb-6">
+                        Niveles de competencia según el Marco Nacional de Cualificaciones:
                     </p>
-                    <h4 class="font-semibold text-lg mb-3">Niveles de Certificación CONOCER:</h4>
-                    <ul class="list-disc pl-5 space-y-2 text-gray-700">
-                        <li>Nivel 1: Competencias básicas y rutinarias</li>
-                        <li>Nivel 2: Competencias específicas con supervisión limitada</li>
-                        <li>Nivel 3: Competencias técnicas con responsabilidad y autonomía</li>
+                    <ul class="space-y-3 list-disc pl-5">
+                        <li>Nivel 1: Competencias básicas de ejecución</li>
+                        <li>Nivel 2: Competencias técnicas simples</li>
+                        <li>Nivel 3: Competencias técnicas complejas</li>
                         <li>Nivel 4: Competencias técnicas avanzadas y de gestión</li>
                         <li>Nivel 5: Competencias profesionales con planificación y supervisión</li>
                     </ul>
-                </div>
+                </article>
             </div>
         </div>
     </section>
@@ -1111,16 +1139,16 @@
                         Manufactura Sostenible, Transformación Digital y Filosofía Solarpunk
                     </p>
                     <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gray-700 transition-colors">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gray-700 transition-colors" aria-label="Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gray-700 transition-colors">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gray-700 transition-colors" aria-label="Twitter">
                             <i class="fab fa-twitter"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gray-700 transition-colors">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gray-700 transition-colors" aria-label="Instagram">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gray-700 transition-colors">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gray-700 transition-colors" aria-label="LinkedIn">
                             <i class="fab fa-linkedin-in"></i>
                         </a>
                     </div>
@@ -1155,7 +1183,7 @@
                         </li>
                         <li class="flex items-start">
                             <i class="fas fa-envelope mt-1 mr-3 text-gray-400"></i>
-                            <span class="text-gray-400"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="41282f272e012c202527202c6f2c39">[email&#160;protected]</a></span>
+                            <span class="text-gray-400"><a href="mailto:contacto@madfam.com" class="hover:text-white">contacto@madfam.com</a></span>
                         </li>
                         <li class="flex items-start">
                             <i class="fas fa-phone-alt mt-1 mr-3 text-gray-400"></i>
