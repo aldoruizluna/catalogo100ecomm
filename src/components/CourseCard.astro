@@ -1,5 +1,22 @@
 ---
-const { course } = Astro.props;
+/**
+ * CourseCard Component
+ *
+ * Displays a single course with its details in a card format.
+ *
+ * @prop {Course} course - The course object containing details to display.
+ */
+interface Course {
+  id: number;
+  name: string;
+  category: string;
+  description: string | null; // Assuming description can be null based on API docs
+  duration: number;
+  instructor: string;
+  // createdAt?: string | Date; // Optional, depending if needed for display
+}
+
+const { course } = Astro.props as { course: Course };
 ---
 
 <article
@@ -12,7 +29,12 @@ const { course } = Astro.props;
     >
       {course.category}
     </span>
-    <p class="text-gray-600 mb-4">{course.description}</p>
+    <!-- Only display description if it exists -->
+    {
+      course.description && (
+        <p class="text-gray-600 mb-4">{course.description}</p>
+      )
+    }
     <div class="flex justify-between items-center">
       <span class="text-sm text-gray-500">{course.duration} horas</span>
       <span class="text-sm font-medium">Prof. {course.instructor}</span>

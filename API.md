@@ -29,7 +29,12 @@ Retrieves a list of all available courses.
 - **Success Response:**
   - **Code:** `200 OK`
   - **Content Type:** `application/json; charset=utf-8`
-  - **Body:** An array of course objects.
+  - **Headers (Example):**
+    ```
+    Content-Type: application/json; charset=utf-8
+    Access-Control-Allow-Origin: *  // Included for cross-origin requests (e.g., local dev)
+    ```
+  - **Body:** An array of course objects. If no courses exist, returns `[]`.
     ```json
     [
       {
@@ -72,7 +77,7 @@ Adds a new course to the catalog.
 - **Description:** Inserts a new record into the `courses` table.
 - **Request Body:**
   - **Content Type:** `application/json`
-  - **Schema:** Requires at least `name` and `category`. Other fields are optional based on the database schema (`src/db/schema.ts`).
+  - **Schema:** Requires `name` (string) and `category` (string). Other fields (`description`, `duration`, `instructor`) are optional based on the database schema (`src/db/schema.ts`).
     ```json
     {
       "name": "Nuevo Curso de JS",
@@ -85,27 +90,27 @@ Adds a new course to the catalog.
 - **Success Response:**
   - **Code:** `201 Created`
   - **Content Type:** `application/json; charset=utf-8`
-  - **Body:** The newly created course object (structure might depend slightly on Drizzle's return value upon insert, often includes metadata like `lastInsertRowid`).
+  - **Body:** An object containing information about the insert operation, including the number of rows changed and the ID of the last inserted row.
     ```json
     {
-      // Details depend on Drizzle's response configuration
-      // Potentially includes the inserted data or just success/ID info
+      "changes": 1,
+      "lastInsertRowid": 123 // Example ID, will be the actual generated ID
     }
     ```
 - **Error Response:**
-  - **Code:** `400 Bad Request` (If request body is invalid or missing required fields)
+  - **Code:** `400 Bad Request` (If request body is missing required fields or they have incorrect types)
   - **Content Type:** `application/json; charset=utf-8`
-  - **Body:**
+  - **Body (Example):**
     ```json
     {
-      "error": "Invalid data"
+      "error": "Invalid data: Missing or invalid name" // Or for category
     }
     ```
-  - **Code:** `500 Internal Server Error` (If database insertion fails)
+  - **Code:** `500 Internal Server Error` (If any unexpected server error occurs, e.g., database insertion fails, JSON parsing error)
   - **Content Type:** `application/json; charset=utf-8`
   - **Body:**
     ```json
     {
-      "error": "Database error" // Or a more specific error
+      "error": "Failed to process request"
     }
     ```

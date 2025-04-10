@@ -8,7 +8,7 @@ The application is a web-based catalog for courses offered by MADFAM. It allows 
 
 ## 2. Technology Stack
 
-- **Framework:** [Astro](https://astro.build) (v5.x)
+- **Framework:** [Astro](https://astro.build) (v5.6.1)
   - Used for building the user interface and handling routing.
   - Configured for **Server-Side Rendering (SSR)** using the `@astrojs/node` adapter, allowing dynamic data fetching and rendering on the server.
 - **Backend Runtime:** [Node.js](https://nodejs.org/)

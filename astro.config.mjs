@@ -17,6 +17,6 @@ export default defineConfig({
     assets: '_assets'
   },
   server: {
-    port: 4321 // Use default Astro port
+    port: 3000 // Changed to port 3000 as requested
   }
 });

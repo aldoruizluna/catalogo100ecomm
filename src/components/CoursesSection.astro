@@ -1,21 +1,32 @@
 ---
 import CourseCard from './CourseCard.astro';
 
+/**
+ * CoursesSection Component
+ *
+ * Displays a filterable grid of courses using CourseCard components.
+ * Includes client-side filtering and animations via anime.js.
+ *
+ * @prop {Course[]} courses - An array of course objects to display.
+ */
+
+// Define the Course type consistently (ideally imported from a shared file)
+interface Course {
+  id: number;
+  name: string;
+  category: string;
+  description: string | null;
+  duration: number;
+  instructor: string;
+}
+
 export interface Props {
-  courses: Array<{
-    id: number;
-    name: string;
-    category: string;
-    description?: string;
-    duration?: number;
-    instructor?: string;
-    created_at?: string;
-  }>;
+  courses: Course[];
 }
 
 const { courses } = Astro.props;
 
-// Filter categories from courses
+// Filter unique categories from courses for the filter buttons
 const categories = [...new Set(courses.map((course) => course.category))];
 
 // Client-side script for filtering and animations
@@ -26,79 +37,98 @@ const categories = [...new Set(courses.map((course) => course.category))];
 ></script>
 
 <script>
-  // Add TypeScript declaration for the global anime object
+  // Add TypeScript declaration for the global anime object from the CDN
   declare global {
     interface Window {
-      anime: any;
+      anime: any; // Use 'any' as we don't have types for the CDN version
     }
   }
-  // Use anime.js from CDN
 
   document.addEventListener('DOMContentLoaded', () => {
-    // Reference the global anime object with an explicit cast to silence TypeScript
+    // Ensure anime.js is loaded before using it
+    if (typeof window.anime === 'undefined') {
+      console.error('anime.js not loaded');
+      return;
+    }
+    // Reference the global anime object (cast to 'any' to avoid TS errors)
     const anime = (window as any).anime;
-    const categoryButtons = document.querySelectorAll('.category-button');
-    const courseCards = document.querySelectorAll('.course-card-wrapper');
+    const categoryButtons =
+      document.querySelectorAll<HTMLElement>('.category-button');
+    const courseCardWrappers = document.querySelectorAll<HTMLElement>(
+      '.course-card-wrapper'
+    );
 
-    // Function to filter courses and apply animation
+    /**
+     * Filters course cards based on the selected category and applies animations.
+     * @param {string} category - The category to filter by ('Todos' shows all).
+     */
     function filterCourses(category: string | undefined | null) {
-      if (!category) return; // Add null/undefined check for safety
+      if (!category) return; // Safety check
 
-      courseCards.forEach((card) => {
-        const cardElement = card as HTMLElement;
-        const courseCategory = cardElement.dataset.courseCategory;
+      courseCardWrappers.forEach((cardWrapper) => {
+        const courseCategory = cardWrapper.dataset.courseCategory; // Read category from data attribute
         const match = category === 'Todos' || courseCategory === category;
 
-        // Simple fade in/out animation - Call anime directly
+        // Animate opacity for fade-in/fade-out effect
         anime({
-          targets: cardElement,
-          opacity: match ? [0, 1] : [1, 0],
+          targets: cardWrapper,
+          opacity: match ? [0, 1] : [1, 0], // Fade in if match, fade out if not
           duration: 300,
           easing: 'easeOutQuad',
+          // Use begin/complete callbacks to manage display property for layout flow
           begin: () => {
-            if (match) cardElement.style.display = '';
+            if (match) cardWrapper.style.display = ''; // Show card before fade-in
           },
           complete: () => {
-            if (!match) cardElement.style.display = 'none';
+            if (!match) cardWrapper.style.display = 'none'; // Hide card after fade-out
           },
         });
       });
     }
 
-    // Add event listeners to buttons
+    // Add click event listeners to category filter buttons
     categoryButtons.forEach((button) => {
       button.addEventListener('click', () => {
-        const btnElement = button as HTMLElement;
-        const category = btnElement.dataset.category;
+        const category = button.dataset.category; // Get category from button's data attribute
         if (category) {
-          // Check if category exists
-          // Remove active class from all buttons
-          categoryButtons.forEach((btn) =>
-            btn.classList.remove('btn-active', 'btn-primary')
+          // Update active state styling for buttons
+          categoryButtons.forEach(
+            (btn) =>
+              btn.classList.remove(
+                'bg-blue-500',
+                'text-white',
+                'border-blue-500'
+              ) // Remove active styles
           );
-          // Add active class to the clicked button
-          btnElement.classList.add('btn-active', 'btn-primary');
+          button.classList.add('bg-blue-500', 'text-white', 'border-blue-500'); // Add active styles
+
+          // Filter the course cards
           filterCourses(category);
         }
       });
     });
 
-    // Set initial state and filter
+    // --- Initial Setup ---
+    // Find the 'Todos' button and set it as active initially
     const initialButton = document.querySelector<HTMLElement>(
       '.category-button[data-category="Todos"]'
     );
     if (initialButton) {
-      // Null check for initialButton
-      initialButton.classList.add('btn-active', 'btn-primary');
+      initialButton.classList.add(
+        'bg-blue-500',
+        'text-white',
+        'border-blue-500'
+      );
     }
-    filterCourses('Todos'); // Default to 'Todos' on load
+    // Perform initial filter to show all courses
+    filterCourses('Todos');
 
-    // Optional: Initial load animation for cards - Call anime directly
+    // Apply initial load animation to cards
     anime({
       targets: '.course-card-wrapper',
-      translateY: [20, 0],
-      opacity: [0, 1],
-      delay: anime.stagger(50), // Use anime.stagger
+      translateY: [20, 0], // Animate from slightly below
+      opacity: [0, 1], // Fade in
+      delay: anime.stagger(50), // Stagger animation for each card
       easing: 'easeOutExpo',
     });
   });
@@ -117,16 +147,22 @@ const categories = [...new Set(courses.map((course) => course.category))];
     <!-- Category Filters -->
     <div class="flex flex-wrap justify-center gap-3 mb-12 animate-element">
       <button
-        class="px-6 py-2 rounded-full border-2 border-blue-500 text-blue-500 font-medium hover:bg-blue-500 hover:text-white transition-all"
-        data-category="all"
+        class="category-button px-6 py-2 rounded-full border-2 border-gray-300 text-gray-700 font-medium hover:border-blue-500 hover:text-blue-500 transition-all"
+        data-category="Todos"
       >
         Todos
       </button>
       {
         categories.map((category) => (
           <button
-            class="px-6 py-2 rounded-full border-2 border-gray-300 text-gray-700 font-medium hover:border-blue-500 hover:text-blue-500 transition-all"
-            data-category={category.toLowerCase().replace(/\s+/g, '-')}
+            class="category-button px-6 py-2 rounded-full border-2 border-gray-300 text-gray-700 font-medium hover:border-blue-500 hover:text-blue-500 transition-all"
+            data-category={category}
+            Use
+            original
+            category
+            name
+            for
+            filtering
           >
             {category}
           </button>
@@ -139,7 +175,18 @@ const categories = [...new Set(courses.map((course) => course.category))];
       {
         courses.length > 0 ? (
           courses.map((course) => (
-            <CourseCard class="course-card opacity-0" course={course} />
+            // Add wrapper div with data-course-category for filtering and class for animation target
+            <div
+              class="course-card-wrapper opacity-0"
+              Start
+              hidden
+              for
+              initial
+              animation
+              data-course-category={course.category}
+            >
+              <CourseCard course={course} />
+            </div>
           ))
         ) : (
           <div class="col-span-full text-center py-12">

@@ -16,7 +16,11 @@ Modern Astro implementation of the MADFAM course catalog with enhanced performan
 
 ```
 catalogo100ecomm/
-├── public/           # Static assets (images, etc.)
+├── public/           # Static assets (images, CSS, etc.)
+│   ├── css/
+│   │   └── main.css # Custom site styles
+│   └── images/
+│       └── ...      # Site images
 ├── src/
 │   ├── components/   # Reusable Astro/UI components
 │   ├── db/           # Database connection, schema, seeding
@@ -170,7 +174,7 @@ This project uses [Vitest](https://vitest.dev/) for unit and integration testing
 
 ## 📚 Tech Stack
 
-- [Astro](https://astro.build) (v5.x) - Frontend framework with static site generation
+- [Astro](https://astro.build) (v5.6.1) - Frontend framework with static site generation
 - [GitHub Pages](https://pages.github.com/) - Hosting and deployment
 - [SQLite](https://sqlite.org) - Database
 - [Drizzle ORM](https://orm.drizzle.team) - Database toolkit

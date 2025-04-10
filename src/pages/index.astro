@@ -5,40 +5,19 @@ import HeroSection from '../components/HeroSection.astro';
 import AboutSection from '../components/AboutSection.astro';
 import CoursesSection from '../components/CoursesSection.astro';
 
-// Using hardcoded sample data to verify component rendering
+// Database Imports
+import db from '../db';
+import { courses as coursesTable } from '../db/schema'; // Import the schema
 
-// Sample data matching expected format
-const courses = [
-  {
-    id: 1,
-    name: 'Manufactura Sostenible 101',
-    category: 'Manufactura',
-    description: 'Fundamentos de producción eco-amigable',
-    duration: 20,
-    instructor: 'Dra. Elena Martínez',
-    created_at: new Date().toISOString(),
-  },
-  {
-    id: 2,
-    name: 'Transformación Digital Avanzada',
-    category: 'Digital',
-    description: 'Tecnologías disruptivas para negocios',
-    duration: 30,
-    instructor: 'Ing. Carlos Fuentes',
-    created_at: new Date().toISOString(),
-  },
-  {
-    id: 3,
-    name: 'Principios Solarpunk',
-    category: 'Sostenibilidad',
-    description: 'Filosofía y aplicación práctica',
-    duration: 15,
-    instructor: 'Lic. Ana Solar',
-    created_at: new Date().toISOString(),
-  },
-];
-
-console.log('Using hardcoded sample courses:', courses.length);
+// Fetch courses from the database during server-side rendering
+let courses = [];
+try {
+  courses = await db.select().from(coursesTable).all();
+  console.log('Fetched courses from DB:', courses.length);
+} catch (error) {
+  console.error('Error fetching courses from DB:', error);
+  // Optionally handle the error, e.g., show a message or default data
+}
 ---
 
 <BaseLayout title="MADFAM - Catálogo Completo de Cursos">

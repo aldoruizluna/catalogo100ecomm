@@ -1,17 +1,28 @@
 ---
-// Static navbar without imported mobile menu component
+/**
+ * Navbar Component
+ *
+ * Displays the main navigation bar for the site. Includes:
+ * - Logo
+ * - Desktop navigation links (visible on medium screens and up)
+ * - Mobile menu toggle button (visible on small screens)
+ * - Mobile menu panel (hidden by default, slides in)
+ *
+ * Uses client-side JavaScript to handle the mobile menu toggle.
+ */
 ---
 
 <nav
   class="absolute top-0 left-0 w-full py-6 px-4 md:px-12 flex justify-between items-center z-50 bg-transparent"
 >
+  <!-- Logo -->
   <div class="text-3xl font-bold tracking-wider">
     <span class="text-green-400">MAD</span>
     <span class="text-blue-400">F</span>
     <span class="text-orange-400">AM</span>
   </div>
 
-  <!-- Desktop Navigation -->
+  <!-- Desktop Navigation Links (Hidden on Mobile) -->
   <div class="hidden md:flex space-x-8 text-lg">
     <a href="#acerca" class="text-white hover:text-gray-300 transition-colors"
       >Acerca</a
@@ -38,7 +49,7 @@
     >
   </div>
 
-  <!-- Mobile Menu Toggle -->
+  <!-- Mobile Menu Toggle Button (Visible on Mobile) -->
   <button
     id="mobile-menu-button"
     class="md:hidden text-2xl cursor-pointer text-white"
@@ -48,17 +59,19 @@
   </button>
 </nav>
 
-<!-- Mobile Menu (Simple Static Version) -->
+<!-- Mobile Menu Panel (Initially Hidden) -->
 <div
   id="mobile-menu"
   class="fixed top-0 left-0 w-full h-screen bg-gray-900 text-white z-50 transform transition-transform duration-300 translate-x-full"
 >
+  <!-- Mobile Menu Close Button -->
   <div class="flex justify-end p-6">
     <button id="mobile-menu-close" class="text-2xl" aria-label="Close menu">
       <i class="fas fa-times"></i>
     </button>
   </div>
 
+  <!-- Mobile Menu Links -->
   <div class="flex flex-col items-center space-y-8 p-8">
     <a
       href="#acerca"
@@ -89,31 +102,34 @@
 </div>
 
 <script>
+  // Client-side script to handle mobile menu interactions
   document.addEventListener('DOMContentLoaded', function () {
+    // Get references to the necessary DOM elements
     const menuButton = document.getElementById('mobile-menu-button');
     const closeButton = document.getElementById('mobile-menu-close');
     const mobileMenu = document.getElementById('mobile-menu');
     const menuLinks = document.querySelectorAll('.mobile-menu-link');
 
+    // Check if essential elements exist before adding listeners
     if (menuButton && mobileMenu) {
-      // Open menu when button is clicked
+      // Event Listener: Open mobile menu when the toggle button is clicked
       menuButton.addEventListener('click', function () {
-        mobileMenu.classList.remove('translate-x-full');
+        mobileMenu.classList.remove('translate-x-full'); // Slide in from right
         mobileMenu.classList.add('translate-x-0');
       });
 
-      // Close menu when close button is clicked
+      // Event Listener: Close mobile menu when the close button is clicked
       if (closeButton) {
         closeButton.addEventListener('click', function () {
-          mobileMenu.classList.add('translate-x-full');
+          mobileMenu.classList.add('translate-x-full'); // Slide out to right
           mobileMenu.classList.remove('translate-x-0');
         });
       }
 
-      // Close menu when links are clicked
+      // Event Listener: Close mobile menu when any of the menu links are clicked
       menuLinks.forEach(function (link) {
         link.addEventListener('click', function () {
-          mobileMenu.classList.add('translate-x-full');
+          mobileMenu.classList.add('translate-x-full'); // Slide out to right
           mobileMenu.classList.remove('translate-x-0');
         });
       });

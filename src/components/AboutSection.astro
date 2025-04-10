@@ -1,4 +1,17 @@
 ---
+/**
+ * AboutSection Component
+ *
+ * Renders the 'About MADFAM' section of the page. Includes:
+ * - Information about the platform ('Quiénes Somos')
+ * - Mission statement
+ * - Overview of the three 'Learning Dimensions' (Manufacturing, Digital, Solarpunk)
+ *
+ * Uses client-side JavaScript with anime.js and IntersectionObserver
+ * to trigger fade-in/slide-up animations on elements as they scroll into view.
+ *
+ * This component is static and does not accept props.
+ */
 // No frontend imports in server context
 ---
 
@@ -7,37 +20,47 @@
 ></script>
 
 <script>
-  // TypeScript declaration for the globally loaded anime library
+  // TypeScript declaration for the globally loaded anime library from the CDN
   declare const anime: any;
 
-  // Animation triggers
+  // Client-side script for scroll-triggered animations
   document.addEventListener('DOMContentLoaded', () => {
+    /**
+     * Function to apply animation to elements with the 'animate-element' class.
+     * Uses anime.js for a fade-in and slide-up effect.
+     */
     const animateOnScroll = () => {
       document.querySelectorAll('.animate-element').forEach((el) => {
+        // Apply animation using anime.js
         anime({
-          targets: el,
-          opacity: [0, 1],
-          translateY: [30, 0],
-          duration: 600,
-          easing: 'easeOutQuad',
-          delay: anime.stagger(100),
+          targets: el, // Target the specific element
+          opacity: [0, 1], // Animate opacity from 0 to 1 (fade-in)
+          translateY: [30, 0], // Animate Y position from 30px below to 0 (slide-up)
+          duration: 600, // Animation duration in milliseconds
+          easing: 'easeOutQuad', // Easing function for smooth animation
+          delay: anime.stagger(100), // Apply a staggered delay for multiple elements
         });
       });
     };
 
-    // Intersection Observer setup
+    // Intersection Observer setup to detect when sections become visible
     const observer = new IntersectionObserver(
       (entries) => {
+        // Callback function when intersection status changes
         entries.forEach((entry) => {
+          // Check if the element is intersecting (visible in the viewport)
           if (entry.isIntersecting) {
+            // Trigger the animation function
             animateOnScroll();
+            // Stop observing the element once it has been animated to prevent re-triggering
             observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 } // Trigger when at least 10% of the element is visible
     );
 
+    // Observe all elements with the 'section-container' class
     document.querySelectorAll('.section-container').forEach((el) => {
       observer.observe(el);
     });
