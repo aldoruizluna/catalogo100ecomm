@@ -1,0 +1,99 @@
+---
+import anime from 'animejs/lib/anime.es.js';
+import CourseCard from './CourseCard.astro';
+
+export interface Props {
+  courses: Array<{
+    id: number;
+    name: string;
+    category: string;
+    description?: string;
+    duration?: number;
+    instructor?: string;
+    created_at?: string;
+  }>;
+}
+
+const { courses } = Astro.props;
+
+// Filter categories from courses
+const categories = [...new Set(courses.map(course => course.category))];
+let activeCategory = 'all';
+
+// Animation setup
+if (typeof window !== 'undefined') {
+  const animateCards = () => {
+    anime({
+      targets: '.course-card',
+      opacity: [0, 1],
+      translateY: [20, 0],
+      duration: 600,
+      easing: 'easeOutQuad',
+      delay: anime.stagger(100)
+    });
+  };
+
+  // Run animations when section is visible
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCards();
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  observer.observe(document.querySelector('#cursos'));
+}
+---
+
+<!-- Courses Section -->
+<section id="cursos" class="py-20 px-4 md:px-12 bg-gray-50 section-container">
+  <div class="max-w-7xl mx-auto">
+    <h2 class="text-4xl font-bold text-center mb-16 relative">
+      Nuestros <span class="text-blue-600">Cursos</span>
+      <span class="absolute bottom-0 left-1/2 w-20 h-1 bg-blue-500 transform -translate-x-1/2 mt-2"></span>
+    </h2>
+
+    <!-- Category Filters -->
+    <div class="flex flex-wrap justify-center gap-3 mb-12 animate-element">
+      <button 
+        class="px-6 py-2 rounded-full border-2 border-blue-500 text-blue-500 font-medium hover:bg-blue-500 hover:text-white transition-all"
+        data-category="all"
+      >
+        Todos
+      </button>
+      {categories.map(category => (
+        <button 
+          class="px-6 py-2 rounded-full border-2 border-gray-300 text-gray-700 font-medium hover:border-blue-500 hover:text-blue-500 transition-all"
+          data-category={category.toLowerCase().replace(/\s+/g, '-')}
+        >
+          {category}
+        </button>
+      ))}
+    </div>
+
+    <!-- Courses Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {courses.length > 0 ? (
+        courses.map(course => (
+          <CourseCard 
+            class="course-card opacity-0" 
+            course={course} 
+          />
+        ))
+      ) : (
+        <div class="col-span-full text-center py-12">
+          <p class="text-lg text-gray-600">No hay cursos disponibles en este momento</p>
+        </div>
+      )}
+    </div>
+
+    <!-- View More Button -->
+    <div class="text-center mt-12 animate-element">
+      <button class="px-8 py-3 bg-blue-600 text-white rounded-full font-medium hover:bg-blue-700 transition-all transform hover:scale-105">
+        Ver Catálogo Completo
+      </button>
+    </div>
+  </div>
+</section>

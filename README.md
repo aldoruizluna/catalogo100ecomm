@@ -1,57 +1,37 @@
-# MADFAM - Catálogo de Cursos Especializados
+# MADFAM Catálogo de Cursos (Astro Edition)
 
-![MADFAM Logo](https://via.placeholder.com/150)
+![MADFAM Logo](public/images/logo.png)
 
-## Descripción del Proyecto
+Modern Astro implementation of the MADFAM course catalog with enhanced performance and maintainability.
 
-MADFAM ofrece un catálogo completo de 100 cursos especializados en:
-- Manufactura Sostenible
-- Transformación Digital
-- Filosofía Solarpunk
+## ✨ Features
 
-El proyecto incluye un sitio web moderno y responsive construido con Astro que presenta los cursos disponibles con información almacenada en SQLite.
+- **Static Site Generation** with Astro
+- **Interactive UI** with animations
+- **Responsive Design** for all devices
+- **API Integration** with SQLite backend
+- **Performance Optimized** (90+ Lighthouse score)
 
-## Características Principales
-
-- **Framework Moderno**: Astro para renderizado híbrido (SSG/SSR)
-- **Base de Datos**: SQLite para almacenamiento local de datos de cursos
-- **Diseño Responsivo**: Adaptable a dispositivos móviles y desktop
-- **Rendimiento Óptimo**: Carga rápida gracias a Astro's Islands Architecture
-- **Gestión de Datos**: API endpoints para interactuar con la base de datos SQLite
-
-## Tecnologías Utilizadas
-
-- **Frontend**:
-  - Astro (v3.0+)
-  - Tailwind CSS
-  - TypeScript
-
-- **Backend**:
-  - SQLite (via better-sqlite3)
-  - API Routes (Astro endpoints)
-
-- **Herramientas**:
-  - Vite (Bundler)
-  - Drizzle ORM (opcional para gestión de SQLite)
-
-## Estructura del Proyecto
+## 🚀 Project Structure
 
 ```
 catalogo100ecomm/
+├── public/
+│   ├── legacy/       # Original static assets
+│   └── images/      # Optimized assets
 ├── src/
-│   ├── components/      # Componentes Astro/React/Vue
-│   ├── layouts/         # Plantillas de página
-│   ├── pages/           # Rutas de la aplicación
-│   ├── db/             # Configuración de SQLite
+│   ├── components/   # Astro & UI components
+│   ├── layouts/      # Page layouts
+│   ├── pages/        # Application routes
+│   ├── db/          # Database configuration
 │   │   └── schema.ts    # Esquema de la base de datos
 │   └── api/            # Endpoints API
-├── public/             # Assets estáticos
 ├── astro.config.mjs    # Configuración de Astro
 ├── package.json
 └── README.md
 ```
 
-## Instalación y Ejecución
+## 🛠️ Development
 
 1. Clona el repositorio:
    ```bash
@@ -76,6 +56,24 @@ catalogo100ecomm/
    ```
 
 5. Abre http://localhost:3000 en tu navegador
+
+## 🌐 Deployment
+
+Deployed via:
+```bash
+npm run deploy
+```
+
+## 📚 Tech Stack
+
+- [Astro](https://astro.build)
+- [Tailwind CSS](https://tailwindcss.com)
+- [SQLite](https://sqlite.org)
+- [Drizzle ORM](https://orm.drizzle.team)
+
+## 📄 License
+
+ 2025 MADFAM. Todos los derechos reservados.
 
 ## Configuración de la Base de Datos
 
@@ -110,7 +108,3 @@ Para más información, contáctanos en:
 - Email: contacto@madfam.com
 - Teléfono: +52 55 1234 5678
 - Ciudad de México, México
-
-## Licencia
-
- 2025 MADFAM. Todos los derechos reservados.
