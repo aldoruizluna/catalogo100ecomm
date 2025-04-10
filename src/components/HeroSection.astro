@@ -1,17 +1,13 @@
 ---
-import anime from 'animejs';
-
-// Animation setup
-if (typeof window !== 'undefined') {
-  anime({
-    targets: '#hero-content',
-    opacity: [0, 1],
-    translateY: [20, 0],
-    duration: 800,
-    easing: 'easeOutQuad',
-  });
-}
+// No import needed as we use the CDN version
+// import anime from 'animejs';
 ---
+
+<!-- Include anime.js from CDN -->
+<script
+  is:inline
+  src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"
+></script>
 
 <section
   class="hero-bg text-white min-h-screen relative flex flex-col justify-center items-center"
@@ -68,3 +64,26 @@ if (typeof window !== 'undefined') {
     </svg>
   </div>
 </section>
+
+<script>
+  // Add TypeScript declaration for the global anime object
+  declare global {
+    interface Window {
+      anime: any;
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // Reference the global anime object with an explicit cast
+    const anime = (window as any).anime;
+
+    // Animation setup
+    anime({
+      targets: '#hero-content',
+      opacity: [0, 1],
+      translateY: [20, 0],
+      duration: 800,
+      easing: 'easeOutQuad',
+    });
+  });
+</script>
