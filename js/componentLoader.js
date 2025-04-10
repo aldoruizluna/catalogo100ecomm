@@ -2,7 +2,7 @@
 const loadComponents = async () => {
   // Get all component placeholders
   const components = document.querySelectorAll('[data-component]');
-  
+
   // Load each component
   for (const component of components) {
     const name = component.dataset.component;

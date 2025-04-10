@@ -13,6 +13,6 @@ async function testConnection() {
   }
 }
 
-testConnection().then(success => {
+testConnection().then((success) => {
   process.exit(success ? 0 : 1);
 });

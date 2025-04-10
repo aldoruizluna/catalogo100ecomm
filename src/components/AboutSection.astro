@@ -4,29 +4,32 @@ import anime from 'animejs/lib/anime.es.js';
 // Animation triggers
 if (typeof window !== 'undefined') {
   const animateOnScroll = () => {
-    document.querySelectorAll('.animate-element').forEach(el => {
+    document.querySelectorAll('.animate-element').forEach((el) => {
       anime({
         targets: el,
         opacity: [0, 1],
         translateY: [30, 0],
         duration: 600,
         easing: 'easeOutQuad',
-        delay: anime.stagger(100)
+        delay: anime.stagger(100),
       });
     });
   };
 
   // Intersection Observer setup
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        animateOnScroll();
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateOnScroll();
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
 
-  document.querySelectorAll('.section-container').forEach(el => {
+  document.querySelectorAll('.section-container').forEach((el) => {
     observer.observe(el);
   });
 }
@@ -36,32 +39,41 @@ if (typeof window !== 'undefined') {
 <section id="acerca" class="py-20 px-4 md:px-12 bg-white section-container">
   <div class="max-w-7xl mx-auto">
     <h2 class="text-4xl font-bold text-center mb-16 relative">
-      Acerca de <span class="text-green-600">MAD</span><span class="text-blue-600">F</span><span class="text-orange-600">AM</span>
-      <span class="absolute bottom-0 left-1/2 w-20 h-1 bg-blue-500 transform -translate-x-1/2 mt-2"></span>
+      Acerca de <span class="text-green-600">MAD</span><span
+        class="text-blue-600">F</span
+      ><span class="text-orange-600">AM</span>
+      <span
+        class="absolute bottom-0 left-1/2 w-20 h-1 bg-blue-500 transform -translate-x-1/2 mt-2"
+      ></span>
     </h2>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16">
       <div class="animate-element">
         <h3 class="text-2xl font-semibold mb-4">Quiénes Somos</h3>
         <p class="text-gray-700 mb-6">
-          MADFAM es una plataforma educativa innovadora que combina manufactura avanzada, 
-          transformación digital y filosofía solarpunk para crear soluciones sostenibles.
+          MADFAM es una plataforma educativa innovadora que combina manufactura
+          avanzada, transformación digital y filosofía solarpunk para crear
+          soluciones sostenibles.
         </p>
         <p class="text-gray-700">
-          Nuestro catálogo de 100 cursos especializados está diseñado para profesionales 
-          que buscan liderar la evolución industrial del siglo XXI.
+          Nuestro catálogo de 100 cursos especializados está diseñado para
+          profesionales que buscan liderar la evolución industrial del siglo
+          XXI.
         </p>
       </div>
 
       <div class="animate-element">
         <div class="relative overflow-hidden rounded-lg shadow-lg h-80">
-          <div class="absolute inset-0 bg-gradient-to-r from-green-500 to-blue-500 opacity-80"></div>
+          <div
+            class="absolute inset-0 bg-gradient-to-r from-green-500 to-blue-500 opacity-80"
+          >
+          </div>
           <div class="absolute inset-0 flex items-center justify-center p-8">
             <div class="text-white text-center">
               <h3 class="text-3xl font-bold mb-4">Nuestra Misión</h3>
               <p class="text-xl">
-                Democratizar el conocimiento especializado para acelerar 
-                la transición hacia una manufactura sostenible y digital.
+                Democratizar el conocimiento especializado para acelerar la
+                transición hacia una manufactura sostenible y digital.
               </p>
             </div>
           </div>
@@ -71,7 +83,9 @@ if (typeof window !== 'undefined') {
 
     <!-- Learning Dimensions -->
     <div class="mb-20 animate-element">
-      <h3 class="text-2xl font-semibold mb-6 text-center">Dimensiones de Aprendizaje</h3>
+      <h3 class="text-2xl font-semibold mb-6 text-center">
+        Dimensiones de Aprendizaje
+      </h3>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <!-- Manufacturing Card -->
         <div class="bg-white rounded-lg shadow-lg overflow-hidden">
@@ -79,8 +93,8 @@ if (typeof window !== 'undefined') {
           <div class="p-6">
             <h4 class="text-xl font-semibold mb-3">Manufactura Sostenible</h4>
             <p class="text-gray-700">
-              Técnicas de producción limpia, economía circular, eficiencia energética 
-              y materiales ecológicos para una industria responsable.
+              Técnicas de producción limpia, economía circular, eficiencia
+              energética y materiales ecológicos para una industria responsable.
             </p>
           </div>
         </div>
@@ -91,8 +105,8 @@ if (typeof window !== 'undefined') {
           <div class="p-6">
             <h4 class="text-xl font-semibold mb-3">Transformación Digital</h4>
             <p class="text-gray-700">
-              Tecnologías de automatización, optimización de procesos, análisis de datos 
-              y evolución cultural de la organización.
+              Tecnologías de automatización, optimización de procesos, análisis
+              de datos y evolución cultural de la organización.
             </p>
           </div>
         </div>
@@ -103,8 +117,8 @@ if (typeof window !== 'undefined') {
           <div class="p-6">
             <h4 class="text-xl font-semibold mb-3">Filosofía Solarpunk</h4>
             <p class="text-gray-700">
-              Visión de un futuro positivo donde tecnología y sostenibilidad se unen 
-              con impacto social, estético y ético.
+              Visión de un futuro positivo donde tecnología y sostenibilidad se
+              unen con impacto social, estético y ético.
             </p>
           </div>
         </div>

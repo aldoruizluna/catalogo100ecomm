@@ -8,7 +8,9 @@ export const courses = sqliteTable('courses', {
   description: text('description'),
   duration: integer('duration'), // in hours
   instructor: text('instructor'),
-  createdAt: integer('created_at', { mode: 'timestamp' }).$defaultFn(() => new Date())
+  createdAt: integer('created_at', { mode: 'timestamp' }).$defaultFn(
+    () => new Date()
+  ),
 });
 
 export type Course = typeof courses.$inferSelect;

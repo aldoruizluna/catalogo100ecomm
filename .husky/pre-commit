@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+# Run lint-staged
+npx lint-staged
+
+# Optionally, add other checks like running all tests (if lint-staged doesn't)
+# npm run test -- --passWithNoTests

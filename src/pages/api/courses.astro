@@ -8,15 +8,15 @@ export async function GET() {
     const allCourses = await db.select().from(courses).all();
     return new Response(JSON.stringify(allCourses || []), {
       headers: {
-        'Content-Type': 'application/json; charset=utf-8'
-      }
+        'Content-Type': 'application/json; charset=utf-8',
+      },
     });
-  } catch (error) {
+  } catch {
     return new Response(JSON.stringify({ error: 'Database error' }), {
       status: 500,
       headers: {
-        'Content-Type': 'application/json; charset=utf-8'
-      }
+        'Content-Type': 'application/json; charset=utf-8',
+      },
     });
   }
 }
@@ -25,20 +25,56 @@ export async function GET() {
 export async function POST({ request }) {
   try {
     const data = await request.json();
+
+    // --- Basic Input Validation ---
+    if (!data.name || typeof data.name !== 'string') {
+      return new Response(
+        JSON.stringify({ error: 'Invalid data: Missing or invalid name' }),
+        {
+          status: 400,
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+          },
+        }
+      );
+    }
+    if (!data.category || typeof data.category !== 'string') {
+      return new Response(
+        JSON.stringify({ error: 'Invalid data: Missing or invalid category' }),
+        {
+          status: 400,
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+          },
+        }
+      );
+    }
+    // --- End Validation ---
+
+    // TODO: Add more specific validation/sanitization if needed (e.g., length checks, allowed characters)
+    // Consider using a validation library like Zod for more complex scenarios.
+
     const newCourse = await db.insert(courses).values(data).run();
     return new Response(JSON.stringify(newCourse), {
       status: 201,
       headers: {
-        'Content-Type': 'application/json; charset=utf-8'
-      }
+        'Content-Type': 'application/json; charset=utf-8',
+      },
     });
   } catch (error) {
-    return new Response(JSON.stringify({ error: 'Invalid data' }), {
-      status: 400,
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8'
+    // Log the detailed error on the server for debugging
+    console.error('Error inserting course:', error);
+
+    // Generic error for the client
+    return new Response(
+      JSON.stringify({ error: 'Failed to process request' }),
+      {
+        status: 500, // Use 500 for unexpected server errors
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+        },
       }
-    });
+    );
   }
 }
 ---

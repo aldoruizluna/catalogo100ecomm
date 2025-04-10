@@ -5,16 +5,17 @@ import Footer from '../components/Footer.astro';
 
 const { title } = Astro.props;
 ---
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="es">
-<head>
-  <Head {title} />
-</head>
-<body class="font-sans">
-  <Navbar />
-  <main>
-    <slot />
-  </main>
-  <Footer />
-</body>
+  <head>
+    <Head {title} />
+  </head>
+  <body class="font-sans">
+    <Navbar />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
 </html>
