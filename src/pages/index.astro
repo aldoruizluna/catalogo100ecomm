@@ -1,0 +1,38 @@
+---
+// Components
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import AboutSection from '../components/AboutSection.astro';
+import CoursesSection from '../components/CoursesSection.astro';
+
+// Data Fetching
+const baseUrl = import.meta.env.DEV ? 'http://localhost:3000' : '';
+let courses: Array<{
+  id: number;
+  name: string;
+  category: string;
+  description?: string;
+  duration?: number;
+  instructor?: string;
+  created_at?: string;
+}> = [];
+
+try {
+  const response = await fetch(`${baseUrl}/api/courses`);
+  
+  if (response.ok) {
+    const contentType = response.headers.get('content-type') || '';
+    if (contentType.includes('application/json')) {
+      courses = await response.json();
+    }
+  }
+} catch (error) {
+  console.error('Failed to load courses:', error);
+}
+---
+
+<BaseLayout title="MADFAM - Catálogo Completo de Cursos">
+  <HeroSection />
+  <AboutSection />
+  <CoursesSection courses={courses} />
+</BaseLayout>

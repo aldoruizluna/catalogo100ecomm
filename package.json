@@ -1,5 +1,19 @@
 {
   "dependencies": {
-    "better-sqlite3": "^11.9.1"
+    "@astrojs/node": "^9.1.3",
+    "astro": "^5.6.1",
+    "better-sqlite3": "^11.9.1",
+    "drizzle-orm": "^0.41.0"
+  },
+  "scripts": {
+    "db:test": "npx tsx src/db/test.ts",
+    "db:seed": "npx tsx src/db/seed.ts",
+    "db:reset": "rm -f src/db/dev.db && npm run db:seed",
+    "dev": "npm run db:seed && astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.3"
   }
 }
