@@ -129,3 +129,6 @@ Thumbs.db
 *.db
 *.db-shm
 *.db-wal
+
+# Astro build cache and types
+.astro/

@@ -1,54 +1,39 @@
 ---
-const { mobileMenuOpen } = Astro.props;
+// No props needed anymore
 ---
 
 <!-- Mobile Menu -->
 <div
-  class={`fixed top-0 left-0 w-full h-screen bg-gray-900 text-white z-50 transform transition-transform duration-300 ${mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
+  class={`fixed top-0 left-0 w-full h-screen bg-gray-900 text-white z-50 transform transition-transform duration-300 translate-x-full`}
 >
   <div class="flex justify-end p-6">
-    <button
-      class="text-2xl"
-      onclick="mobileMenuOpen = false"
-      aria-label="Close menu"
-    >
+    <button class="text-2xl" aria-label="Close menu">
       <i class="fas fa-times"></i>
     </button>
   </div>
 
   <div class="flex flex-col items-center space-y-8 p-8">
-    <a
-      href="#acerca"
-      class="text-2xl hover:text-blue-400 transition-colors"
-      onclick="mobileMenuOpen = false"
-    >
+    <a href="#acerca" class="text-2xl hover:text-blue-400 transition-colors">
       Acerca
     </a>
     <a
       href="#fabricacion"
       class="text-2xl hover:text-blue-400 transition-colors"
-      onclick="mobileMenuOpen = false"
     >
       Fabricación Sostenible
     </a>
     <a
       href="#transformacion"
       class="text-2xl hover:text-blue-400 transition-colors"
-      onclick="mobileMenuOpen = false"
     >
       Transformación Digital
     </a>
-    <a
-      href="#solarpunk"
-      class="text-2xl hover:text-blue-400 transition-colors"
-      onclick="mobileMenuOpen = false"
-    >
+    <a href="#solarpunk" class="text-2xl hover:text-blue-400 transition-colors">
       Filosofía Solarpunk
     </a>
     <a
       href="#certificaciones"
       class="text-2xl hover:text-blue-400 transition-colors"
-      onclick="mobileMenuOpen = false"
     >
       Certificaciones
     </a>
