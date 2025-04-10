@@ -1,9 +1,9 @@
 ---
-import * as anime from 'animejs';
+import anime from 'animejs';
 
 // Animation setup
 if (typeof window !== 'undefined') {
-  anime.default({
+  anime({
     targets: '#hero-content',
     opacity: [0, 1],
     translateY: [20, 0],
