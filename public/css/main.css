@@ -26,7 +26,7 @@ h6 {
 .hero-bg {
   background:
     linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.4) 100%),
-    url('/images/hero-background.jpg')
+    url('../images/hero-background.jpg')
       no-repeat center center;
   background-size: cover;
 }
