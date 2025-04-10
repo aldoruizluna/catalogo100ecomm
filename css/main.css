@@ -1,0 +1,162 @@
+:root {
+    --color-fabricacion: #2E7D32;
+    --color-transformacion: #1565C0;
+    --color-solarpunk: #FF6D00;
+    --gradient-fabricacion: linear-gradient(135deg, #2E7D32 0%, #81C784 100%);
+    --gradient-transformacion: linear-gradient(135deg, #1565C0 0%, #64B5F6 100%);
+    --gradient-solarpunk: linear-gradient(135deg, #FF6D00 0%, #FFAB40 100%);
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+}
+
+.hero-bg {
+    background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 100%), url('https://images.unsplash.com/photo-1501084291732-13b1ba8f0ebc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center;
+    background-size: cover;
+}
+
+.nav-item {
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-item:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: currentColor;
+    transition: width 0.3s ease;
+}
+
+.nav-item:hover:after {
+    width: 100%;
+}
+
+.category-card {
+    transition: all 0.4s ease;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.category-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.course-card {
+    transition: all 0.3s ease;
+    border-top-width: 5px;
+}
+
+.course-card.fabricacion {
+    border-top-color: var(--color-fabricacion);
+}
+
+.course-card.transformacion {
+    border-top-color: var(--color-transformacion);
+}
+
+.course-card.solarpunk {
+    border-top-color: var(--color-solarpunk);
+}
+
+.course-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+.fabricacion-bg {
+    background: var(--gradient-fabricacion);
+}
+
+transformacion-bg {
+    background: var(--gradient-transformacion);
+}
+
+.solarpunk-bg {
+    background: var(--gradient-solarpunk);
+}
+
+.course-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+}
+
+.course-details.active {
+    max-height: 2000px;
+}
+
+.animate-element {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.scroll-top-btn {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.search-container input {
+    padding-left: 40px;
+    transition: all 0.3s ease;
+}
+
+.search-container input:focus {
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+}
+
+.search-container .search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #718096;
+}
+
+/* Filter tags */
+.filter-tag {
+    transition: all 0.2s ease;
+}
+
+.filter-tag:hover {
+    transform: translateY(-2px);
+}
+
+/* Timeline styles */
+.timeline-item:nth-child(odd) .timeline-content {
+    margin-left: auto;
+}
+
+.timeline-item:nth-child(odd) .timeline-content::after {
+    left: -10px;
+}
+
+/* Print styles */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    
+    .course-details {
+        max-height: none !important;
+        display: block !important;
+    }
+    
+    .page-break {
+        page-break-after: always;
+    }
+}
