@@ -8,16 +8,27 @@ import CoursesSection from '../components/CoursesSection.astro';
 // Database Imports
 import db from '../db';
 import { courses as coursesTable } from '../db/schema'; // Import the schema
+import type { Course } from '../types'; // Import the shared type
 
 // Fetch courses from the database during server-side rendering
-let courses = [];
+let courses: Course[] = []; // Explicitly type the array
 try {
-  courses = await db.select().from(coursesTable).all();
-  console.log('Fetched courses from DB:', courses.length);
+  console.log('⏳ [INDEX] Attempting to fetch courses from database...');
+  // Cast the result if needed, though Drizzle might infer types correctly
+  courses = (await db.select().from(coursesTable).all()) as Course[];
+  console.log(
+    `✅ [INDEX] Fetched ${courses.length} courses from DB:`,
+    JSON.stringify(courses, null, 2)
+  ); // Log the actual data
 } catch (error) {
-  console.error('Error fetching courses from DB:', error);
+  console.error('❌ [INDEX] Error fetching courses from DB:', error);
   // Optionally handle the error, e.g., show a message or default data
 }
+
+console.log(
+  'ℹ️ [INDEX] Passing courses to CoursesSection component:',
+  courses.length > 0 ? 'Data available' : 'No data'
+);
 ---
 
 <BaseLayout title="MADFAM - Catálogo Completo de Cursos">

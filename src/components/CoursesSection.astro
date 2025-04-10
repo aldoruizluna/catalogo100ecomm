@@ -1,5 +1,6 @@
 ---
 import CourseCard from './CourseCard.astro';
+import type { Course } from '../types'; // Import the shared type
 
 /**
  * CoursesSection Component
@@ -10,24 +11,24 @@ import CourseCard from './CourseCard.astro';
  * @prop {Course[]} courses - An array of course objects to display.
  */
 
-// Define the Course type consistently (ideally imported from a shared file)
-interface Course {
-  id: number;
-  name: string;
-  category: string;
-  description: string | null;
-  duration: number;
-  instructor: string;
-}
-
 export interface Props {
   courses: Course[];
 }
 
 const { courses } = Astro.props;
 
+console.log(
+  `ℹ️ [CoursesSection] Received ${courses.length} courses:`,
+  JSON.stringify(courses, null, 2)
+);
+
 // Filter unique categories from courses for the filter buttons
 const categories = [...new Set(courses.map((course) => course.category))];
+
+console.log(
+  `ℹ️ [CoursesSection] Extracted ${categories.length} unique categories:`,
+  categories
+);
 
 // Client-side script for filtering and animations
 ---
@@ -157,12 +158,6 @@ const categories = [...new Set(courses.map((course) => course.category))];
           <button
             class="category-button px-6 py-2 rounded-full border-2 border-gray-300 text-gray-700 font-medium hover:border-blue-500 hover:text-blue-500 transition-all"
             data-category={category}
-            Use
-            original
-            category
-            name
-            for
-            filtering
           >
             {category}
           </button>
@@ -178,11 +173,6 @@ const categories = [...new Set(courses.map((course) => course.category))];
             // Add wrapper div with data-course-category for filtering and class for animation target
             <div
               class="course-card-wrapper opacity-0"
-              Start
-              hidden
-              for
-              initial
-              animation
               data-course-category={course.category}
             >
               <CourseCard course={course} />

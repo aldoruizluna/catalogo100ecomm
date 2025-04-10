@@ -54,18 +54,47 @@ const sampleCourses = [
 
 async function seed() {
   try {
-    console.log('⏳ Seeding database...');
+    console.log('⏳ [SEED] Seeding database...');
 
     // Clear existing data
+    console.log('⏳ [SEED] Clearing existing data from courses table...');
     await db.delete(courses).run();
+    console.log('✅ [SEED] Existing data cleared.');
 
-    // Insert sample data
-    await db.insert(courses).values(sampleCourses).run();
+    // Insert sample data one by one
+    console.log(
+      `⏳ [SEED] Attempting to insert ${sampleCourses.length} sample courses individually...`
+    );
+    let insertedCount = 0;
+    for (const course of sampleCourses) {
+      try {
+        console.log(`  ⏳ [SEED] Inserting course: ${course.name}`);
+        await db.insert(courses).values(course).run();
+        console.log(`    ✅ [SEED] Successfully inserted: ${course.name}`);
+        insertedCount++;
+      } catch (insertError) {
+        console.error(
+          `    ❌ [SEED] Failed to insert course: ${course.name}`,
+          insertError
+        );
+      }
+    }
+    console.log(
+      `ℹ️ [SEED] Finished inserting loop. Successfully inserted ${insertedCount} courses.`
+    );
 
-    console.log('✅ Database seeded successfully');
+    console.log('✅ [SEED] Database seeding process completed.');
+    // Optional: Verify data insertion
+    const countResult = await db
+      .select({ count: courses.id })
+      .from(courses)
+      .get();
+    console.log(
+      `ℹ️ [SEED] Verification: Found ${countResult?.count ?? 0} courses in the database after seeding.`
+    );
     return true;
   } catch (error) {
-    console.error('❌ Error seeding database:', error);
+    console.error('❌ [SEED] Error seeding database:', error);
     return false;
   }
 }
