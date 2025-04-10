@@ -27,4 +27,4 @@ const { title } = Astro.props;
 />
 
 <!-- Local CSS -->
-<link rel="stylesheet" href="/css/main.css" />
+<link rel="stylesheet" href={import.meta.env.BASE_URL + 'css/main.css'} />
