@@ -5,10 +5,15 @@ import { courses } from '../../db/schema';
 // GET handler
 export async function GET() {
   try {
+    console.log('API: Fetching courses from database...');
     const allCourses = await db.select().from(courses).all();
+    console.log('API: Courses fetched:', JSON.stringify(allCourses));
+
+    // Add CORS headers for local development
     return new Response(JSON.stringify(allCourses || []), {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
+        'Access-Control-Allow-Origin': '*',
       },
     });
   } catch {

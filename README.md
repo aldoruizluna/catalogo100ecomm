@@ -6,7 +6,7 @@ Modern Astro implementation of the MADFAM course catalog with enhanced performan
 
 ## ✨ Features
 
-- **Server-Side Rendering (SSR)** with Astro & Node.js adapter
+- **Static Site Generation** with Astro for GitHub Pages deployment
 - **Interactive UI** with animations (via potential JS/components)
 - **Responsive Design** for all devices
 - **Database Integration** with SQLite via Drizzle ORM
@@ -82,16 +82,31 @@ Follow these steps to set up and run the project locally for development:
 
 ## 🌐 Deployment
 
-1.  **Build the Application for Production:**
+### GitHub Pages Automatic Deployment
+
+This project is configured for automatic deployment to GitHub Pages:
+
+1. **Push to Main Branch**:
+   When you push to the `main` branch, the GitHub Actions workflow will automatically build and deploy the site.
+
+2. **Manual Deployment**:
+   You can also manually trigger a deployment from the Actions tab in the GitHub repository.
+
+### Build Locally
+
+1. **Build the Application for Production:**
 
     ```bash
     npm run build
     ```
 
-    This generates the production-ready output in the `dist/` directory.
+    This generates the production-ready static output in the `dist/` directory.
 
-2.  **Deploy to a Hosting Provider:**
-    Deploy the contents of the `dist/` directory (specifically `dist/server/entry.mjs` and related assets) to your preferred Node.js hosting provider (e.g., Vercel, Netlify, Render, a custom server).
+2. **Preview the Production Build Locally:**
+
+    ```bash
+    npm run preview
+    ```
     - The exact command to start the production server depends on the hosting environment (e.g., `node dist/server/entry.mjs`).
     - Stopping the production server also depends on the environment (e.g., `kill` command, service manager like `systemctl` or `pm2`).
 
@@ -155,8 +170,8 @@ This project uses [Vitest](https://vitest.dev/) for unit and integration testing
 
 ## 📚 Tech Stack
 
-- [Astro](https://astro.build) (v5.x) - Frontend framework with SSR
-- [Node.js](https://nodejs.org/) - Backend runtime (via `@astrojs/node` adapter)
+- [Astro](https://astro.build) (v5.x) - Frontend framework with static site generation
+- [GitHub Pages](https://pages.github.com/) - Hosting and deployment
 - [SQLite](https://sqlite.org) - Database
 - [Drizzle ORM](https://orm.drizzle.team) - Database toolkit
 - [TypeScript](https://www.typescriptlang.org/) - For type safety

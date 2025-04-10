@@ -13,7 +13,7 @@
     "db:seed": "npx tsx src/db/seed.ts",
     "db:reset": "rm -f src/db/dev.db && npm run db:seed",
     "dev": "npm run db:seed && astro dev",
-    "build": "astro build",
+    "build": "npm run db:seed && astro build",
     "preview": "astro preview",
     "test": "vitest run",
     "lint": "eslint . --ext .js,.ts,.astro",

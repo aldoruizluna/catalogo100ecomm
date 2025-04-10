@@ -5,30 +5,40 @@ import HeroSection from '../components/HeroSection.astro';
 import AboutSection from '../components/AboutSection.astro';
 import CoursesSection from '../components/CoursesSection.astro';
 
-// Data Fetching
-const baseUrl = import.meta.env.DEV ? 'http://localhost:3000' : '';
-let courses: Array<{
-  id: number;
-  name: string;
-  category: string;
-  description?: string;
-  duration?: number;
-  instructor?: string;
-  created_at?: string;
-}> = [];
+// Using hardcoded sample data to verify component rendering
 
-try {
-  const response = await fetch(`${baseUrl}/api/courses`);
+// Sample data matching expected format
+const courses = [
+  {
+    id: 1,
+    name: 'Manufactura Sostenible 101',
+    category: 'Manufactura',
+    description: 'Fundamentos de producción eco-amigable',
+    duration: 20,
+    instructor: 'Dra. Elena Martínez',
+    created_at: new Date().toISOString(),
+  },
+  {
+    id: 2,
+    name: 'Transformación Digital Avanzada',
+    category: 'Digital',
+    description: 'Tecnologías disruptivas para negocios',
+    duration: 30,
+    instructor: 'Ing. Carlos Fuentes',
+    created_at: new Date().toISOString(),
+  },
+  {
+    id: 3,
+    name: 'Principios Solarpunk',
+    category: 'Sostenibilidad',
+    description: 'Filosofía y aplicación práctica',
+    duration: 15,
+    instructor: 'Lic. Ana Solar',
+    created_at: new Date().toISOString(),
+  },
+];
 
-  if (response.ok) {
-    const contentType = response.headers.get('content-type') || '';
-    if (contentType.includes('application/json')) {
-      courses = await response.json();
-    }
-  }
-} catch (error) {
-  console.error('Failed to load courses:', error);
-}
+console.log('Using hardcoded sample courses:', courses.length);
 ---
 
 <BaseLayout title="MADFAM - Catálogo Completo de Cursos">
