@@ -21,11 +21,22 @@ const categories = [...new Set(courses.map((course) => course.category))];
 // Client-side script for filtering and animations
 ---
 
+<!-- Include anime.js from CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"
+></script>
+
 <script>
-  // @ts-ignore - Suppress TS error for anime import in Astro script tag
-  import anime from 'animejs';
+  // Add TypeScript declaration for the global anime object
+  declare global {
+    interface Window {
+      anime: any;
+    }
+  }
+  // Use anime.js from CDN
 
   document.addEventListener('DOMContentLoaded', () => {
+    // Reference the global anime object with an explicit cast to silence TypeScript
+    const anime = (window as any).anime;
     const categoryButtons = document.querySelectorAll('.category-button');
     const courseCards = document.querySelectorAll('.course-card-wrapper');
 
@@ -38,8 +49,7 @@ const categories = [...new Set(courses.map((course) => course.category))];
         const courseCategory = cardElement.dataset.courseCategory;
         const match = category === 'Todos' || courseCategory === category;
 
-        // Simple fade in/out animation
-        // @ts-ignore - Suppress TS error for anime in Astro script tag (keep as precaution)
+        // Simple fade in/out animation - Call anime directly
         anime({
           targets: cardElement,
           opacity: match ? [0, 1] : [1, 0],
@@ -83,13 +93,12 @@ const categories = [...new Set(courses.map((course) => course.category))];
     }
     filterCourses('Todos'); // Default to 'Todos' on load
 
-    // Optional: Initial load animation for cards
-    // @ts-ignore - Suppress TS error for anime in Astro script tag (keep as precaution)
+    // Optional: Initial load animation for cards - Call anime directly
     anime({
       targets: '.course-card-wrapper',
       translateY: [20, 0],
       opacity: [0, 1],
-      delay: anime.stagger(50),
+      delay: anime.stagger(50), // Use anime.stagger
       easing: 'easeOutExpo',
     });
   });
