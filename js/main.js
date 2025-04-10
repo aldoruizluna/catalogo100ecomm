@@ -170,6 +170,12 @@ function setupSmoothScrolling() {
 
 // Initialize all functionality
 document.addEventListener('DOMContentLoaded', function() {
+    // First make sure all animated elements are visible
+    document.querySelectorAll('.animate-element').forEach(el => {
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+    });
+    
     setupMobileMenu();
     setupCourseDetailsToggle();
     setupCourseFilters();
