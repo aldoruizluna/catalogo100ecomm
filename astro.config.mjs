@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
+import node from '@astrojs/node';
 
 // Determine base path based on the command being run
 const base = process.env.npm_lifecycle_event === 'build'
@@ -8,8 +9,9 @@ const base = process.env.npm_lifecycle_event === 'build'
 
 // https://astro.build/config
 export default defineConfig({
+  adapter: node(),
   integrations: [tailwind()],
-  output: 'static',  // Changed from 'server' to 'static' for GitHub Pages
+  output: 'server',  
   site: 'https://aldoruizluna.github.io', // Replace with your GitHub username
   base: base, // Use the conditional base path
   build: {

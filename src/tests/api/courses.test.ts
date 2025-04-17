@@ -1,46 +1,36 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import supertest from 'supertest';
 import { spawn } from 'child_process';
+import supertest from 'supertest';
 
 // Base URL of the running Astro development server
 const API_URL = 'http://localhost:3000';
 // Note: For more robust testing, consider environment variables
 // or dynamically starting/stopping the server during tests.
 
+// Spin up dev server for tests
+let server: ReturnType<typeof spawn>;
 const request = supertest(API_URL);
 
-let server: ReturnType<typeof spawn>;
-
+// Spin up a dev server before tests, then poll HTTP until ready
 beforeAll(async () => {
   server = spawn('npm', ['run', 'dev'], {
     cwd: process.cwd(),
     shell: true,
-    stdio: ['ignore', 'pipe', 'pipe'],
+    stdio: 'ignore',
   });
-  await new Promise((resolve, reject) => {
-    const timeout = setTimeout(
-      () => reject(new Error('Server did not start in time')),
-      60000
-    );
-    const onData = (data: Buffer) => {
-      const msg = data.toString();
-      if (/localhost:3000/i.test(msg)) {
-        clearTimeout(timeout);
-        resolve(null);
-      }
-    };
-    server.stdout!.on('data', onData);
-    server.stderr!.on('data', onData);
-    server.on('error', (err) => {
-      clearTimeout(timeout);
-      reject(err);
-    });
-  });
+  const start = Date.now();
+  while (Date.now() - start < 60000) {
+    try {
+      await request.get('/api/courses').expect(200);
+      return;
+    } catch {
+      await new Promise((r) => setTimeout(r, 1000));
+    }
+  }
+  throw new Error('Server did not start in time');
 }, 60000);
 
-afterAll(() => {
-  server.kill();
-});
+afterAll(() => server.kill());
 
 describe('API Endpoints - /api/courses', () => {
   it('GET /api/courses should return a list of courses', async () => {
@@ -119,5 +109,58 @@ describe('API Endpoints - /api/courses', () => {
           'Invalid data: Missing or invalid category'
         );
       });
+  });
+
+  it('POST /api/courses should return 400 for invalid name type', async () => {
+    const invalidData = {
+      name: 123,
+      category: 'Testing',
+      description: 'Desc',
+    };
+    await request
+      .post('/api/courses')
+      .send(invalidData)
+      .expect(400)
+      .expect('Content-Type', /json/)
+      .then((res) => {
+        expect(res.body.error).toContain(
+          'Invalid data: Missing or invalid name'
+        );
+      });
+  });
+
+  it('POST /api/courses should return 400 for invalid category type', async () => {
+    const invalidData = {
+      name: 'Test',
+      category: 123,
+      description: 'Desc',
+    };
+    await request
+      .post('/api/courses')
+      .send(invalidData)
+      .expect(400)
+      .expect('Content-Type', /json/)
+      .then((res) => {
+        expect(res.body.error).toContain(
+          'Invalid data: Missing or invalid category'
+        );
+      });
+  });
+
+  it('POST /api/courses should return 500 for malformed JSON', async () => {
+    await request
+      .post('/api/courses')
+      .set('Content-Type', 'application/json')
+      .send('not a json')
+      .expect(500)
+      .expect('Content-Type', /json/)
+      .then((res) => {
+        expect(res.body.error).toBe('Failed to process request');
+      });
+  });
+
+  it('GET /api/courses should include CORS header', async () => {
+    const res = await request.get('/api/courses').expect(200);
+    expect(res.headers['access-control-allow-origin']).toBe('*');
   });
 });
