@@ -6,6 +6,7 @@
     "astro": "^5.6.1",
     "better-sqlite3": "^11.9.1",
     "drizzle-orm": "^0.41.0",
+    "dotenv": "^16.1.4",
     "tailwindcss": "^3.4.17"
   },
   "scripts": {
@@ -13,13 +14,15 @@
     "db:seed": "npx tsx src/db/seed.ts",
     "db:reset": "rm -f src/db/dev.db && npm run db:seed",
     "dev": "npm run db:seed && astro dev",
-    "build": "npm run db:seed && astro build",
+    "build": "astro build",
     "preview": "astro preview",
     "test": "vitest run",
     "test:api": "start-server-and-test --timeout=60000 npm:dev http://localhost:3000/api/courses npm:test",
     "lint": "eslint . --ext .js,.ts,.astro",
     "format": "prettier --write . --plugin=prettier-plugin-astro",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "prestart": "npm run db:seed",
+    "start": "node .output/server/index.js"
   },
   "devDependencies": {
     "@types/supertest": "^6.0.2",
